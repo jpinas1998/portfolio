@@ -748,7 +748,7 @@ a {
 
 .rep-splash {
   position: fixed;
-  z-index: 16;
+  z-index: 120;
   left: 50%;
   top: 94px;
   transform: translateX(-50%);
@@ -1026,6 +1026,95 @@ a {
 .level {
   position: absolute;
   inset: 0 auto 0 0;
+}
+
+.world-extension {
+  position: absolute;
+  left: -384px;
+  bottom: 96px;
+  width: 384px;
+  height: 290px;
+  pointer-events: none;
+}
+
+.extension-chalkboard {
+  position: absolute;
+  left: 42px;
+  bottom: 108px;
+  width: 164px;
+  height: 108px;
+  background: #102b24;
+  border: 9px solid #182620;
+  box-shadow: 0 7px 0 #07110f, inset 0 0 0 3px #31584c;
+  transform: rotate(-1deg);
+}
+
+.extension-chalkboard::after {
+  content: "";
+  position: absolute;
+  left: -13px;
+  right: -13px;
+  bottom: -17px;
+  height: 8px;
+  background: #182620;
+  box-shadow: 0 5px 0 #07110f;
+}
+
+.chalk-line,
+.chalk-circle {
+  position: absolute;
+  display: block;
+  opacity: 0.72;
+}
+
+.chalk-line {
+  height: 5px;
+  background: #d8ffe4;
+  box-shadow: 0 9px rgba(216, 255, 228, 0.38);
+}
+
+.chalk-line-a { left: 17px; top: 18px; width: 58px; transform: rotate(3deg); }
+.chalk-line-b { left: 88px; top: 21px; width: 42px; transform: rotate(-4deg); }
+.chalk-line-c { left: 22px; top: 56px; width: 88px; transform: rotate(-2deg); }
+.chalk-line-d { left: 70px; top: 77px; width: 54px; transform: rotate(5deg); }
+
+.chalk-circle {
+  right: 16px;
+  top: 42px;
+  width: 25px;
+  height: 25px;
+  border: 4px solid rgba(255, 176, 0, 0.7);
+  border-radius: 50%;
+  box-shadow: -70px 18px 0 -8px rgba(255, 176, 0, 0.55);
+}
+
+.extension-plates {
+  position: absolute;
+  right: 38px;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.extension-plates span {
+  width: 15px;
+  height: 54px;
+  background: #ff5b5b;
+  border: 4px solid #07110f;
+  box-shadow: inset 0 -9px #a52828;
+}
+
+.extension-plates span:nth-child(2) {
+  height: 42px;
+  background: #40c4ff;
+  box-shadow: inset 0 -9px #176f8e;
+}
+
+.extension-plates span:nth-child(3) {
+  height: 34px;
+  background: var(--accent);
+  box-shadow: inset 0 -9px #a45100;
 }
 
 .level-sign {

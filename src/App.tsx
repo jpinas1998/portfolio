@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import IntroTerminal from './components/IntroTerminal';
 import Game from './components/Game';
 
@@ -20,6 +22,8 @@ function App() {
         <strong id="rotate-title">Rotate your phone</strong>
         <p>This portfolio plays in landscape. Turn your phone sideways to continue.</p>
       </div>
+      <Analytics />
+      <SpeedInsights />
     </>
   );
 }

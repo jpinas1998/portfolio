@@ -58,6 +58,7 @@ const Level: React.FC<LevelProps> = ({
   const wodBoardX = lastStationIndex > 0
     ? (getStationX(lastStationIndex - 1, levelData.stations.length) + getStationX(lastStationIndex, levelData.stations.length)) / 2
     : getStationX(0, levelData.stations.length);
+  const worldTimerX = wodBoardX - 260;
 
   useEffect(() => {
     if (!isLastLevel && gateUnlocked && playerPosition.x > levelWidth - 120) {
@@ -71,6 +72,19 @@ const Level: React.FC<LevelProps> = ({
 
   return (
     <div className="level" style={{ width: `${levelWidth}px` }}>
+      {isFirstLevel && (
+        <div className="world-extension" aria-hidden="true">
+          <div className="extension-chalkboard">
+            <span className="chalk-line chalk-line-a" />
+            <span className="chalk-line chalk-line-b" />
+            <span className="chalk-line chalk-line-c" />
+            <span className="chalk-line chalk-line-d" />
+            <i className="chalk-circle" />
+          </div>
+          <div className="extension-plates"><span /><span /><span /></div>
+        </div>
+      )}
+
       <div className="level-sign">
         <span>{levelData.company}</span>
         <strong>{levelData.wod}</strong>
@@ -83,7 +97,7 @@ const Level: React.FC<LevelProps> = ({
         <span>Key: {requiredSkillKey ?? 'DONE'}</span>
       </div>
 
-      <div className="box-timer world-timer" style={{ left: '980px' }}>13:37</div>
+      <div className="box-timer world-timer" style={{ left: `${worldTimerX}px` }}>13:37</div>
       <div className="wall-kettlebells" style={{ left: '430px' }} aria-hidden="true">
         <span />
         <span />

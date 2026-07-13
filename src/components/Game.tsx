@@ -9,8 +9,9 @@ import { playBeep, playDoubleUnderSound, playFootstep, playVictorySound, startBa
 
 const SKILL_RANGE = 58;
 const STATION_RANGE = 118;
-const WORLD_START_X = -10 * 32;
+const WORLD_START_X = -12 * 32;
 const PLAYER_START_X = 0;
+const FIRST_LEVEL_MIN_PLAYER_X = WORLD_START_X + 48;
 type PlayerAction = 'idle' | 'jump' | 'burpee' | 'du' | 'snatch' | 'boxjump';
 type Skill = 'du' | 'snatch' | 'burpee' | 'boxjump';
 type SecretPhase = 'ready' | 'falling' | 'collectible' | 'collected';
@@ -111,7 +112,11 @@ const Game: React.FC = () => {
     }
     const previousX = playerXRef.current;
     const willHitGate = direction === 1 && !gateUnlocked && previousX >= gateX - movementStep;
-    const nextX = Math.min(Math.max(previousX + direction * movementStep, 0), gateUnlocked ? levelWidth - 60 : gateX);
+    const minimumPlayerX = currentLevelIndex === 0 ? FIRST_LEVEL_MIN_PLAYER_X : 0;
+    const nextX = Math.min(
+      Math.max(previousX + direction * movementStep, minimumPlayerX),
+      gateUnlocked ? levelWidth - 60 : gateX,
+    );
     let nextY = playerYRef.current;
     if (nextY > 0 && Math.abs(nextX - SECRET_BLOCK_X) > 46) {
       nextY = 0;
@@ -347,7 +352,7 @@ const Game: React.FC = () => {
     Math.max(WORLD_START_X, playerPosition.x - viewportWidth / 2),
     Math.max(0, levelWidth - viewportWidth),
   );
-  const localProgress = Math.round((playerPosition.x / Math.max(levelWidth - 60, 1)) * 100);
+  const localProgress = Math.max(0, Math.round((playerPosition.x / Math.max(levelWidth - 60, 1)) * 100));
   const levelProgress = Math.min(100, Math.round(((currentLevelIndex + localProgress / 100) / gameLevels.length) * 100));
   const showGeneralBrief = !activeStation && playerPosition.x <= 160;
   const showBriefPanel = Boolean(activeStation) || showGeneralBrief;
@@ -479,7 +484,7 @@ const Game: React.FC = () => {
         <span className={musicMuted ? 'music-glyph is-muted' : 'music-glyph'} aria-hidden="true">♪</span>
       </button>
 
-      <div className="world" style={{ transform: `translateX(-${cameraX}px)` }}>
+      <div className="world" style={{ transform: `translateX(${-cameraX}px)` }}>
         <Level
           levelData={currentLevelData}
           playerPosition={playerPosition}
@@ -502,7 +507,7 @@ const Game: React.FC = () => {
           secretRewardX={SECRET_REWARD_X}
         />
       </div>
-      <div className="player-world" style={{ transform: `translateX(-${cameraX}px)` }}>
+      <div className="player-world" style={{ transform: `translateX(${-cameraX}px)` }}>
         <Player position={playerPosition} action={playerAction} sizeEffect={secretEffect} />
       </div>
 
